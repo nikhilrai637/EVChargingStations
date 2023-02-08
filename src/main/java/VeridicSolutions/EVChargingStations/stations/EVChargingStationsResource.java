@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class EVChargingStationsResource {
 
     @RequestMapping("/show")
-    public String showAllStations(){
-        return "We will add all beans here!";
+    public EVChargingStation showAllStations(){
+        return  new EVChargingStation("1","Green Zone",
+                        "$132","Pic1","Vancouver,Austin TX");
     }
 }
