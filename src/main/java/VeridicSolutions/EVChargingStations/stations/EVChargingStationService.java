@@ -1,9 +1,11 @@
 package VeridicSolutions.EVChargingStations.stations;
 
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Service
 public class EVChargingStationService {
     public static List<EVChargingStation> stationList = new ArrayList<>();
 
@@ -20,10 +22,16 @@ public class EVChargingStationService {
                  "$132","Pic1","Vancouver,Austin TX"));
      }
 
+    public  EVChargingStation showById(String id){
 
+        EVChargingStation evChargingStation = stationList.stream()
+                .filter(station -> station.getStation_id().equalsIgnoreCase(id))
+                .findFirst()
+                .get();
+        return evChargingStation;
+    }
 
-    public static EVChargingStation showById(String id){
-        List<EVChargingStation> stationByid =    stationList.stream().filter(station -> station.getStation_id().compareToIgnoreCase(id) == 1);
-
-     }
+    public void addStation(EVChargingStation station) {
+         stationList.add(station);
+    }
 }
