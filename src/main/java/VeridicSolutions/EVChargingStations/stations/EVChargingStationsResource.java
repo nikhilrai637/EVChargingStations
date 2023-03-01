@@ -15,11 +15,11 @@ public class EVChargingStationsResource {
 
     @RequestMapping("/show")
     public List<EVChargingStation> showAllStations() {
+
         return EVChargingStationService.stationList;
     }
     @RequestMapping("/show/{id}")
     public EVChargingStation showAllStationsById(@PathVariable String id){
-
         return     evChargingStationService.showById(id);
     }
     @RequestMapping(value = "/",method = RequestMethod.POST)

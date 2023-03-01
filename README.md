@@ -18,6 +18,8 @@
 ##### Advanced
 * ##### A GET request to /?limit = 10, should return only 10 tmes
 * ##### A GET request to /?sort = asc & param = station_pricing, should sort the EV charging station based on pricing(param_value)
+* ##### Zip All your Source Code,Screenshots and detailed deployment instructions and upload
+
 
 
 
