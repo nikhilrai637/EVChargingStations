@@ -19,15 +19,13 @@ public class EVChargingStationsResource {
     }
     @RequestMapping("/show/{id}")
     public EVChargingStation showAllStationsById(@PathVariable String id){
-        System.out.println("Get method called");
+
         return     evChargingStationService.showById(id);
     }
     @RequestMapping(value = "/",method = RequestMethod.POST)
     public void showAllStations(  @RequestBody EVChargingStation station) {
         SecureRandom secureRandom = new SecureRandom();
         String station_id = secureRandom.generateSeed(32).toString();
-        System.out.println(station);
-        station.setStation_id(station_id);
         evChargingStationService.addStation(station);
     }
 }
