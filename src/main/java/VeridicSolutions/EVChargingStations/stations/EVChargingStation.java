@@ -19,6 +19,7 @@ public class EVChargingStation {
         this.station_address = station_address;
     }
 
+
     public String getStation_id() {
         return station_id;
     }
@@ -34,7 +35,6 @@ public class EVChargingStation {
     public void setStation_name(String station_name) {
         this.station_name = station_name;
     }
-
     public String getStation_pricing() {
         return station_pricing;
     }
@@ -59,5 +59,16 @@ public class EVChargingStation {
         this.station_address = station_address;
     }
 
+
+    @Override
+    public String toString() {
+        return "EVChargingStation{" +
+                "station_id='" + station_id + '\'' +
+                ", station_name='" + station_name + '\'' +
+                ", station_pricing='" + station_pricing + '\'' +
+                ", station_image='" + station_image + '\'' +
+                ", station_address='" + station_address + '\'' +
+                '}';
+    }
 
 }
