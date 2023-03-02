@@ -34,4 +34,13 @@ public class EVChargingStationService {
     public void addStation(EVChargingStation station) {
          stationList.add(station);
     }
+
+    public void editStation(String id, EVChargingStation station) {
+        deleteStation(id);
+        stationList.add(station);
+    }
+
+    public void deleteStation(String id) {
+        stationList.removeIf(s -> s.getStation_id().equalsIgnoreCase(id));
+    }
 }
