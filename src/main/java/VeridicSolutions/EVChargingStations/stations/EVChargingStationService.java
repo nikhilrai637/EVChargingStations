@@ -1,5 +1,8 @@
 package VeridicSolutions.EVChargingStations.stations;
 
+import VeridicSolutions.EVChargingStations.stations.springdatajpa.SpringDataJpaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -42,5 +45,18 @@ public class EVChargingStationService {
 
     public void deleteStation(String id) {
         stationList.removeIf(s -> s.getStation_id().equalsIgnoreCase(id));
+    }
+
+    public static class EVChargingStationCommnadLineRunner implements CommandLineRunner {
+        @Autowired
+        private SpringDataJpaRepository repository;
+        @Override
+        public void run(String... args) throws Exception {
+            repository.save(new EVChargingStation("1","Indian Oil"
+                                            ,"100rs","Indian Oil Add"
+                    ,"Kasshmere Gate"));
+
+
+        }
     }
 }

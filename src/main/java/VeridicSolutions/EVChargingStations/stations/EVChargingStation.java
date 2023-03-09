@@ -1,6 +1,11 @@
 package VeridicSolutions.EVChargingStations.stations;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity(name = "Station")
 public class EVChargingStation {
+   @Id
     private String station_id;
 
     private String station_name;
@@ -9,6 +14,7 @@ public class EVChargingStation {
     private String station_image;
     private String station_address;
 
+    public EVChargingStation(){};
     public EVChargingStation(String station_id, String station_name,
                              String station_pricing, String station_image,
                              String station_address) {
