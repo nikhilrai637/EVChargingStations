@@ -21,25 +21,19 @@ public class EVChargingStationService {
     }
 
     public  EVChargingStation showById(String id){
-//        EVChargingStation evChargingStation = stationList.stream()
-//                .filter(station -> station.getStation_id().equalsIgnoreCase(id))
-//                .findFirst()
-//                .get();
-//        return evChargingStation;
-        System.out.println("We are using show by Id");
         return repository.findById(id).get();
     }
 
     public void addStation(EVChargingStation station) {
-         stationList.add(station);
+        repository.save(station);
     }
 
     public void editStation(String id, EVChargingStation station) {
-        deleteStation(id);
-        stationList.add(station);
+        repository.deleteById(id);
+        repository.save(station);
     }
 
     public void deleteStation(String id) {
-        stationList.removeIf(s -> s.getStation_id().equalsIgnoreCase(id));
+        repository.deleteById(id);
     }
 }

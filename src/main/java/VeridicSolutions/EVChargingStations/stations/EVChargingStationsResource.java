@@ -13,7 +13,7 @@ public class EVChargingStationsResource {
 
     @RequestMapping("/show")
     public List<EVChargingStation> showAllStations() {
-        System.out.println("Show Method is called");
+        
         return evChargingStationService.showAll();
     }
     @RequestMapping("/show/{id}")
