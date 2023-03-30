@@ -2,6 +2,8 @@ package VeridicSolutions.EVChargingStations.stations;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 public interface FileService {
-    public void uploadImage(String path , MultipartFile file);
+    public String uploadImage(String path , MultipartFile file) throws IOException;
 }

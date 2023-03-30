@@ -2,12 +2,13 @@ package VeridicSolutions.EVChargingStations;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
 public class EvChargingStationsApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EvChargingStationsApplication.class, args);
+		  SpringApplication.run(EvChargingStationsApplication.class, args);
 	}
 
 }
