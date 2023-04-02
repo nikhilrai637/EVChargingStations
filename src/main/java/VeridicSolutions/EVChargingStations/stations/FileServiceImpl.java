@@ -29,6 +29,6 @@ public   class FileServiceImpl implements FileService {
         }
         //save : copy from source to target folder
         Files.copy(file.getInputStream(), Paths.get(filePath));
-        return name;
+        return fileName1;
     }
 }
