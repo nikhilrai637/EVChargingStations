@@ -2,22 +2,21 @@ package VeridicSolutions.EVChargingStations.stations;
 
 import VeridicSolutions.EVChargingStations.stations.springdatajpa.SpringDataJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class EVChargingStationService {
-
-
     public static List<EVChargingStation> stationList = new ArrayList<>();
     @Autowired
     public SpringDataJpaRepository repository;
 
     public   List<EVChargingStation> showAll() {
-      return   repository.findAll();
+     return   repository.findAll(Sort.by( Sort.Direction.ASC, "stationAddress"));
     }
 
     public  EVChargingStation showById(String id){
@@ -35,5 +34,21 @@ public class EVChargingStationService {
 
     public void deleteStation(String id) {
         repository.deleteById(id);
+    }
+
+    public List<EVChargingStation> findStationsWithSorting(String field){
+
+        return     repository.findAll(Sort.by(Sort.Direction.ASC,field));
+    }
+
+    public   Page<EVChargingStation> findPaginatedStations(int offSet   ,int pageSize) {
+        Page<EVChargingStation> pageStation = repository.findAll(PageRequest.of(offSet, pageSize));
+        return pageStation;
+    }
+
+    public   Page<EVChargingStation> findPaginatedStationsWithSorting(int offSet,int pageSize,String field,Sort.Direction sort) {
+        PageRequest pageRequest =   PageRequest.of(offSet,pageSize,Sort.by(sort,field));
+        Page<EVChargingStation> pageStation = repository.findAll(pageRequest);
+        return pageStation;
     }
 }

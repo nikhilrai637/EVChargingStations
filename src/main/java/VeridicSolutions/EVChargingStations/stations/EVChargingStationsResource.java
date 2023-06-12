@@ -2,22 +2,25 @@ package VeridicSolutions.EVChargingStations.stations;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Sort;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.Watchable;
+import java.io.InputStream;
 import java.security.SecureRandom;
-import java.util.List;
+import java.io.File;
 
 
 @RestController
@@ -30,8 +33,32 @@ public class EVChargingStationsResource {
     @Value("${project.image}")
     private String path;
     @RequestMapping("/show")
-    public List<EVChargingStation> showAllStations() {
-        return evChargingStationService.showAll();
+    public  EVChargingListV0 showAllStations(
+            @RequestParam(value = "page",defaultValue = "1",required = false) Integer page,
+            @RequestParam(value = "limit",defaultValue = "1",required = false) Integer limit
+            ,@RequestParam(value = "sort", defaultValue = "asc", required = false) String sort
+            ,@RequestParam(value = "param", defaultValue = "stationName", required = false) String param
+    ) {
+        Sort.Direction dir =  sort.compareTo("asc") == 0 ?  Sort.Direction.ASC :Sort.Direction.DESC;
+
+        EVChargingListV0 evChargingListV0 = new EVChargingListV0(evChargingStationService
+                                              .findPaginatedStationsWithSorting(page-1, limit,param,dir).stream().toList());
+
+        EVChargingListV0 evChargingListV1 = new EVChargingListV0(evChargingStationService
+                                             .findPaginatedStationsWithSorting(page, limit,param,dir).stream().toList());
+
+
+         if(evChargingListV1.getEVChargingList().size() > 0){
+             Link next = Link.of("/show?page="+ (page+1) +  "&limit=" + (limit)+ "&sort=" + (sort)+ "&param=" + (param));
+             if(page > 1 ) {
+                 Link prev = Link.of("/show?page=" + (page - 1) + "&limit=" + (limit )+ "&sort=" + (sort)+ "&param=" + (param));
+                 evChargingListV0.add(prev);
+             }
+             evChargingListV0.add(next);
+
+         }
+         return evChargingListV0;
+
     }
 
     @RequestMapping("/show/{id}")
@@ -44,7 +71,7 @@ public class EVChargingStationsResource {
     public void insertStation(@RequestPart("image") MultipartFile image,
                               @RequestPart String station
                                     )   {
-
+        System.out.println("Resource / hitted");
         EVChargingStation stationJson = new EVChargingStation();
         try {
               stationJson = new ObjectMapper().readValue(station,EVChargingStation.class);
@@ -98,6 +125,17 @@ public class EVChargingStationsResource {
 
           }
 
+        @RequestMapping(value =  "/{imgName}", method = RequestMethod.GET,
+                produces = MediaType.IMAGE_JPEG_VALUE)
+        public void getImage(HttpServletResponse response,@PathVariable String imgName) throws IOException {
+            InputStream resource = this.fileService.serveImage(path,imgName);
+            response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+            StreamUtils.copy(resource,response.getOutputStream());
+        }
+
 }
+
+
+
 
 

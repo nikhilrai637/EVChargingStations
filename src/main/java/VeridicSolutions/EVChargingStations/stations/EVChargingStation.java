@@ -1,80 +1,84 @@
 package VeridicSolutions.EVChargingStations.stations;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 @Entity(name = "Station")
 public class EVChargingStation {
+
    @Id
-    private String station_id;
+    private String stationId;
 
-    private String station_name;
-    private String station_pricing;
 
-    private String station_image;
-    private String station_address;
+
+    private String stationName;
+    private String stationPricing;
+    private String stationImage;
+    private String stationAddress;
 
     public EVChargingStation(){};
-    public EVChargingStation(String station_id, String station_name,
-                             String station_pricing, String station_image,
-                             String station_address) {
-        this.station_id = station_id;
-        this.station_name = station_name;
-        this.station_pricing = station_pricing;
-        this.station_image = station_image;
-        this.station_address = station_address;
+    public EVChargingStation(String stationId, String stationName,
+                             String stationPricing, String stationImage,
+                             String stationAddress) {
+        this.stationId = stationId;
+        this.stationName = stationName;
+        this.stationPricing = stationPricing;
+        this.stationImage = stationImage;
+        this.stationAddress = stationAddress;
     }
-
 
     public String getStation_id() {
-        return station_id;
+        return stationId;
     }
 
-    public void setStation_id(String station_id) {
-        this.station_id = station_id;
+    public void setStation_id(String stationId) {
+        this.stationId = stationId;
     }
 
-    public String getStation_name() {
-        return station_name;
+    public String getstationName() {
+        return stationName;
     }
 
-    public void setStation_name(String station_name) {
-        this.station_name = station_name;
+    public void setstationName(String stationName) {
+        this.stationName = stationName;
     }
     public String getStation_pricing() {
-        return station_pricing;
+        return stationPricing;
     }
 
-    public void setStation_pricing(String station_pricing) {
-        this.station_pricing = station_pricing;
+    public void setStation_pricing(String stationPricing) {
+        this.stationPricing = stationPricing;
     }
 
     public String getStation_image() {
-        return station_image;
+        return stationImage;
     }
 
-    public void setStation_image(String station_image) {
-        this.station_image = station_image;
+    public void setStation_image(String stationImage) {
+        this.stationImage = stationImage;
     }
 
     public String getStation_address() {
-        return station_address;
+        return stationAddress;
     }
 
-    public void setStation_address(String station_address) {
-        this.station_address = station_address;
+    public void setStation_address(String stationAddress) {
+        this.stationAddress = stationAddress;
     }
 
 
     @Override
     public String toString() {
         return "EVChargingStation{" +
-                "station_id='" + station_id + '\'' +
-                ", station_name='" + station_name + '\'' +
-                ", station_pricing='" + station_pricing + '\'' +
-                ", station_image='" + station_image + '\'' +
-                ", station_address='" + station_address + '\'' +
+                "stationId='" + stationId + '\'' +
+                ", stationName='" + stationName + '\'' +
+                ", stationPricing='" + stationPricing + '\'' +
+                ", stationImage='" + stationImage + '\'' +
+                ", stationAddress='" + stationAddress + '\'' +
                 '}';
     }
+
 
 }
